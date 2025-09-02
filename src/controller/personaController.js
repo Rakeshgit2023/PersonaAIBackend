@@ -3,6 +3,7 @@ import "dotenv/config";
 const openai = new OpenAI({
   apiKey: `${process.env.GEMINI_API_KEY}`,
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+  temperature: 0.5,
 });
 
 export const persona = async (req, res) => {
@@ -172,6 +173,7 @@ Subscribe to my channel to join me on my journey as I explore the exciting world
  
                
   `;
+  console.log([{ role: "system", content: SYSTEM_PROMPT }, ...messages]);
   const response = await openai.chat.completions.create({
     model: "gemini-1.5-flash",
     messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
